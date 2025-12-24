@@ -1,0 +1,32 @@
+[gd_scene load_steps=6 format=3 uid="uid://n3uguejcx2wq"]
+
+[ext_resource type="PackedScene" uid="uid://btt7spw8fmsj2" path="res://object/portal/portal.tscn" id="1_ngmq2"]
+[ext_resource type="Script" uid="uid://bfmxgs8x7prta" path="res://interior/interior_house.gd" id="1_t84fp"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_a1o00"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ngmq2"]
+size = Vector2(530, 14)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_t84fp"]
+
+[node name="InteriorHouse" type="Node2D"]
+script = ExtResource("1_t84fp")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(514, 374)
+texture = SubResource("PlaceholderTexture2D_a1o00")
+
+[node name="Portal" parent="." instance=ExtResource("1_ngmq2")]
+position = Vector2(133, 186)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(0, 194)
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource("RectangleShape2D_ngmq2")
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D"]
+scale = Vector2(532, 16)
+texture = SubResource("PlaceholderTexture2D_t84fp")

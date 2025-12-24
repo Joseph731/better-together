@@ -1,0 +1,53 @@
+[gd_scene load_steps=8 format=3 uid="uid://b0ulb6hlnqy22"]
+
+[ext_resource type="Script" uid="uid://cdiy4mdky38e4" path="res://entity/player/player.gd" id="1_e6ar1"]
+[ext_resource type="Texture2D" uid="uid://ctlw2yteceok4" path="res://assets/player/Knight_anin.png" id="1_nqnt1"]
+[ext_resource type="PackedScene" uid="uid://c7afqq6aanvs4" path="res://component/player_input_synchronizer_component.tscn" id="2_4pl66"]
+[ext_resource type="PackedScene" uid="uid://c82mvfxifbuef" path="res://game_camera.tscn" id="4_bgq54"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_4pl66"]
+properties/0/path = NodePath(".:global_position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4pl66"]
+size = Vector2(30, 55)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e6ar1"]
+size = Vector2(25, 50)
+
+[node name="Player" type="CharacterBody2D" groups=["player"]]
+collision_layer = 0
+script = ExtResource("1_e6ar1")
+
+[node name="PlayerInputSynchronizerComponent" parent="." instance=ExtResource("2_4pl66")]
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_4pl66")
+
+[node name="ActivationArea" type="Area2D" parent="."]
+position = Vector2(0, -28)
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ActivationArea"]
+shape = SubResource("RectangleShape2D_4pl66")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -25)
+shape = SubResource("RectangleShape2D_e6ar1")
+
+[node name="Visuals" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="Visuals"]
+position = Vector2(-2, -48)
+scale = Vector2(3, 3)
+texture = ExtResource("1_nqnt1")
+hframes = 14
+vframes = 7
+
+[node name="PortalCooldown" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+
+[node name="GameCamera" parent="." instance=ExtResource("4_bgq54")]
