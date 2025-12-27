@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dtltsstf81plg"
-path="res://.godot/imported/Anomaly_anim.png-a1e810d8021bdcd1fd7891e31b374a1b.ctex"
+uid="uid://c4n5lefwoumfy"
+path="res://.godot/imported/sword.png-449ae12a6fc76a0fa98f5c5ad6099114.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/enemy/Anomaly_anim.png"
-dest_files=["res://.godot/imported/Anomaly_anim.png-a1e810d8021bdcd1fd7891e31b374a1b.ctex"]
+source_file="res://assets/player/catalog/weapons/sword.png"
+dest_files=["res://.godot/imported/sword.png-449ae12a6fc76a0fa98f5c5ad6099114.ctex"]
 
 [params]
 

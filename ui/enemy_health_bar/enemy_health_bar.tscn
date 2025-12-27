@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://dqkgo7d7smqdf"]
+
+[ext_resource type="Texture2D" uid="uid://dyjm4b8sb0l5v" path="res://assets/enemy/enemy-hp-background.png" id="1_7spvf"]
+[ext_resource type="Script" uid="uid://dwtjqhp8oawxi" path="res://ui/enemy_health_bar/enemy_health_bar.gd" id="1_obi3p"]
+[ext_resource type="Texture2D" uid="uid://bietmeae2hd5v" path="res://assets/enemy/enemy_hp_progress.png" id="2_hr8i2"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_ykqi0"]
+properties/0/path = NodePath(".:value")
+properties/0/spawn = true
+properties/0/replication_mode = 2
+
+[node name="EnemyHealthBar" type="TextureProgressBar"]
+offset_right = 58.0
+offset_bottom = 9.0
+mouse_filter = 2
+max_value = 1.0
+step = 0.0
+nine_patch_stretch = true
+stretch_margin_left = 1
+stretch_margin_top = 1
+stretch_margin_right = 1
+stretch_margin_bottom = 1
+texture_under = ExtResource("1_7spvf")
+texture_progress = ExtResource("2_hr8i2")
+script = ExtResource("1_obi3p")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_ykqi0")

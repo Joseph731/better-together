@@ -1,4 +1,4 @@
-class_name Interior_House
+class_name InteriorHouse
 extends Node2D
 
 @onready var portal: Portal = $Portal

@@ -17,9 +17,13 @@ size = Vector2(30, 100)
 [node name="Map1" type="Node2D"]
 script = ExtResource("1_lfl1v")
 
-[node name="InteriorMultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+[node name="HouseInteriorMultiplayerSpawner" type="MultiplayerSpawner" parent="."]
 _spawnable_scenes = PackedStringArray("uid://n3uguejcx2wq")
 spawn_path = NodePath("..")
+
+[node name="MonsterMultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("uid://dx43li2j7738k")
+spawn_path = NodePath("../Monsters")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(462, 309)
@@ -51,3 +55,5 @@ shape = SubResource("RectangleShape2D_md4jv")
 [node name="Sprite2D" type="Sprite2D" parent="StaticBody2D2"]
 scale = Vector2(30, 100)
 texture = SubResource("PlaceholderTexture2D_qbftp")
+
+[node name="Monsters" type="Node" parent="."]

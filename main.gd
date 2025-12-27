@@ -17,7 +17,6 @@ var player_scene: PackedScene = preload("uid://b0ulb6hlnqy22")
 #@onready var game_ui: GameUI = $GameUI
 #@onready var pause_menu: PauseMenu = $PauseMenu
 #@onready var lobby_manager: LobbyManager = $LobbyManager
-@onready var map_1: Map_1 = $Map1
 
 #var dead_peers: Array[int] = []
 var player_dictionary: Dictionary [int, Player] = {}

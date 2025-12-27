@@ -1,0 +1,103 @@
+[gd_scene load_steps=6 format=3 uid="uid://bs02ccyodye1u"]
+
+[ext_resource type="Script" uid="uid://bh1atrpvoahm" path="res://ui/damage_number/damage_number.gd" id="1_i4q1m"]
+
+[sub_resource type="Animation" id="Animation_owwrk"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Label:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Label:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_i66ve"]
+resource_name = "RiseAndFade"
+length = 1.5
+step = 0.1
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(1.5),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Label:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Label:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -15)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ru35i"]
+_data = {
+&"RESET": SubResource("Animation_owwrk"),
+&"RiseAndFade": SubResource("Animation_i66ve")
+}
+
+[sub_resource type="Theme" id="Theme_5vcef"]
+default_font_size = 25
+
+[node name="DamageNumber" type="Node2D"]
+script = ExtResource("1_i4q1m")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_ru35i")
+}
+autoplay = "RiseAndFade"
+
+[node name="Label" type="Label" parent="."]
+custom_minimum_size = Vector2(123, 0)
+offset_right = 123.0
+offset_bottom = 50.0
+theme = SubResource("Theme_5vcef")
+theme_override_colors/font_color = Color(0.9801398, 0.4561636, 1.1551381e-06, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 36
+text = "123456"
+horizontal_alignment = 1

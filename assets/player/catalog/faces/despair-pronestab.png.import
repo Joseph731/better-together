@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ctlw2yteceok4"
-path="res://.godot/imported/Knight_anin.png-8a31fd3ef68a9b174467b623d94349f4.ctex"
+uid="uid://ccylsqnviuw37"
+path="res://.godot/imported/despair-pronestab.png-cdfb716587f83fb011dac5031214a90c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/player/Knight_anin.png"
-dest_files=["res://.godot/imported/Knight_anin.png-8a31fd3ef68a9b174467b623d94349f4.ctex"]
+source_file="res://assets/player/catalog/faces/despair-pronestab.png"
+dest_files=["res://.godot/imported/despair-pronestab.png-cdfb716587f83fb011dac5031214a90c.ctex"]
 
 [params]
 
