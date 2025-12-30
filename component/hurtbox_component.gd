@@ -17,8 +17,8 @@ func _handle_hit(hitbox_component: HitboxComponent):
 		return
 	
 	hitbox_component.register_hurtbox_hit(self)
-	health_component.damage(hitbox_component.damage)
 	hit_by_hitbox.emit(hitbox_component)
+	health_component.damage(hitbox_component.damage)
 
 func _on_area_entered(other_area: Area2D):
 	if !is_multiplayer_authority() or other_area is not HitboxComponent:

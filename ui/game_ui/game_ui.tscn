@@ -1,0 +1,136 @@
+[gd_scene load_steps=11 format=3 uid="uid://br4i442tebrwd"]
+
+[ext_resource type="Script" uid="uid://dg7mdex6m5ql7" path="res://ui/game_ui/game_ui.gd" id="1_5rq5h"]
+[ext_resource type="Texture2D" uid="uid://byb2cl101wdxa" path="res://assets/ui/hp-empty.png" id="2_adpq5"]
+[ext_resource type="Texture2D" uid="uid://kyqqby1mwj70" path="res://assets/ui/exp-progress.png" id="3_bkjh4"]
+[ext_resource type="Texture2D" uid="uid://cen81bh006em0" path="res://assets/ui/hp-progress.png" id="4_bl2pf"]
+
+[sub_resource type="Theme" id="Theme_rsagr"]
+default_font_size = 13
+
+[sub_resource type="Animation" id="Animation_4pm6l"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_t0sfj"]
+resource_name = "fade_text"
+length = 3.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 3.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1u8jv"]
+_data = {
+&"RESET": SubResource("Animation_4pm6l"),
+&"fade_text": SubResource("Animation_t0sfj")
+}
+
+[sub_resource type="Theme" id="Theme_8v55c"]
+default_font_size = 10
+
+[sub_resource type="Theme" id="Theme_walxy"]
+default_font_size = 22
+
+[node name="GameUI" type="CanvasLayer"]
+script = ExtResource("1_5rq5h")
+
+[node name="ExpBar" type="TextureProgressBar" parent="."]
+offset_left = 1.0
+offset_top = 703.0
+offset_right = 1279.0
+offset_bottom = 719.0
+mouse_filter = 2
+max_value = 1.0
+step = 0.0
+nine_patch_stretch = true
+stretch_margin_left = 2
+stretch_margin_top = 2
+stretch_margin_right = 2
+stretch_margin_bottom = 2
+texture_under = ExtResource("2_adpq5")
+texture_progress = ExtResource("3_bkjh4")
+
+[node name="ExpLabel" type="Label" parent="ExpBar"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 0
+offset_left = 589.0
+offset_top = -2.0
+offset_right = 689.0
+offset_bottom = 16.0
+theme = SubResource("Theme_rsagr")
+theme_override_constants/outline_size = 2
+text = "0[0.00%]"
+horizontal_alignment = 1
+
+[node name="GameTextLabel" type="Label" parent="."]
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -263.0
+offset_top = 315.0
+offset_right = -5.0
+offset_bottom = 338.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="GameTextAnimationPlayer" type="AnimationPlayer" parent="GameTextLabel"]
+unique_name_in_owner = true
+libraries = {
+&"": SubResource("AnimationLibrary_1u8jv")
+}
+
+[node name="HPBar" type="TextureProgressBar" parent="."]
+offset_left = 517.0
+offset_top = 676.0
+offset_right = 773.0
+offset_bottom = 692.0
+mouse_filter = 2
+max_value = 1.0
+step = 0.0
+texture_under = ExtResource("2_adpq5")
+texture_progress = ExtResource("4_bl2pf")
+
+[node name="HPLabel" type="Label" parent="HPBar"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 78.0
+offset_top = 1.0
+offset_right = 178.0
+offset_bottom = 15.0
+theme = SubResource("Theme_8v55c")
+theme_override_constants/outline_size = 2
+text = "100/100"
+horizontal_alignment = 1
+
+[node name="LevelCountLabel" type="Label" parent="."]
+custom_minimum_size = Vector2(73, 0)
+offset_left = 4.0
+offset_top = 675.0
+offset_right = 34.0
+offset_bottom = 706.0
+theme = SubResource("Theme_walxy")
+theme_override_constants/outline_size = 4
+text = "Lvl 200"

@@ -8,8 +8,12 @@
 properties/0/path = NodePath(".:value")
 properties/0/spawn = true
 properties/0/replication_mode = 2
+properties/1/path = NodePath(".:visible")
+properties/1/spawn = true
+properties/1/replication_mode = 2
 
 [node name="EnemyHealthBar" type="TextureProgressBar"]
+visible = false
 offset_right = 58.0
 offset_bottom = 9.0
 mouse_filter = 2

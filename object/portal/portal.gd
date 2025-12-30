@@ -15,7 +15,9 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	if is_multiplayer_authority() && !players_on_portal.is_empty():
 		for player in players_on_portal: 
-			if player.player_input_synchronizer_component.is_enter_pressed && player.portal_cooldown.is_stopped():
+			if player.player_input_synchronizer_component.is_enter_pressed\
+				&& player.portal_cooldown.is_stopped()\
+				&& player.state_machine.current_state == "state_normal":
 				portal_used.emit(player)
 				player.portal_cooldown.start()
 				temporarily_disable_players_camera_effects.rpc(player.input_multiplayer_authority)

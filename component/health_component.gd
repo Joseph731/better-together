@@ -1,7 +1,7 @@
 class_name HealthComponent
 extends Node
 
-signal died
+signal died()
 signal damaged(amount: int)
 signal health_changed(current_health: int, max_health: int)
 
@@ -24,3 +24,6 @@ func damage(amount:int):
 	damaged.emit(amount)
 	if current_health == 0:
 		died.emit()
+
+func _on_leveled_up(_level: int):
+	current_health = max_health

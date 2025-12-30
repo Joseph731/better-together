@@ -11,8 +11,9 @@ const JUMP_VELOCITY = -600.0
 @onready var hurtbox_component: HurtboxComponent = $HurtboxComponent
 @onready var hitbox_component: HitboxComponent = $HitboxComponent
 var damage_number_scene: PackedScene = preload("uid://bs02ccyodye1u")
-var exp_given:float = 1.0
+var exp_reward:int = 5
 var attack_damage:float = 1.0
+var last_hit_by_peer_id: int = -1
 
 func _ready():
 	if is_multiplayer_authority():
@@ -61,9 +62,23 @@ func _on_damaged(damage_amount: int):
 func _on_died():
 	#Global.monster_killed_logic(exp_given)
 	turn_hitbox_on_or_off(false)
-	play_death_animation.rpc()
+	if last_hit_by_peer_id > -1:
+		var players = get_tree().get_nodes_in_group("player") as Array[Player]
+		var killer: Player
+		for player in players:
+			if player.input_multiplayer_authority == last_hit_by_peer_id:
+				killer = player
+				killer.exp_component.give_exp(exp_reward)
+				players.erase(player)
+				break
+		for player in players: #players had the killer removed from it in the for loop above
+			if player.global_position.distance_squared_to(killer.global_position) < 2000 * 2000: #squared is more optimized and functionally the same when comparing
+				player.exp_component.give_exp(exp_reward/2)
+		
+	play_death_animation.rpc() #queue_frees_the_slime
 
 func _on_hit_by_hitbox(attacking_hitbox_component: HitboxComponent):
+	last_hit_by_peer_id = attacking_hitbox_component.source_peer_id
 	if attacking_hitbox_component.owner.get("source_global_position") == null:
 		return
 	if (attacking_hitbox_component.owner.source_global_position.x < global_position.x): #KNOCKBACK

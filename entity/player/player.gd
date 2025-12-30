@@ -10,7 +10,9 @@ const JUMP_VELOCITY = -600.0
 @onready var game_camera: GameCamera = $GameCamera
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
+@onready var ladder_ray_cast_2d: RayCast2D = $LadderRayCast2D
 @onready var health_component: HealthComponent = $HealthComponent
+@onready var exp_component: ExpComponent = $ExpComponent
 @onready var hurtbox_component: HurtboxComponent = $HurtboxComponent
 @onready var invincibility_frames_timer: Timer = $InvincibilityFramesTimer
 
@@ -31,6 +33,7 @@ var current_state:String:
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_SCENE_INSTANTIATED:
 		state_machine.add_states(state_normal, enter_state_normal, leave_state_normal)
+		state_machine.add_states(state_climb, enter_state_climb, leave_state_climb)
 		state_machine.add_states(state_attack, enter_state_attack, leave_state_attack)
 
 func _ready() -> void:
@@ -43,6 +46,7 @@ func _ready() -> void:
 		health_component.damaged.connect(_on_damaged)
 		health_component.died.connect(_on_died)
 		hurtbox_component.hit_by_hitbox.connect(_on_hit_by_hitbox)
+		exp_component.leveled_up.connect(health_component._on_leveled_up)
 		invincibility_frames_timer.timeout.connect(_on_invincibility_frames_timer_timeout)
 
 
@@ -54,7 +58,8 @@ func _physics_process(delta: float) -> void:
 			global_position = Vector2.RIGHT * 1000
 			return
 		
-		velocity += get_gravity() * delta
+		if state_machine.current_state != "state_climb":
+			velocity += get_gravity() * delta
 		
 		if !player_input_synchronizer_component.movement_direction || state_machine.current_state != "state_normal":
 			if is_on_floor():
@@ -68,8 +73,23 @@ func enter_state_normal():
 	pass
 
 func state_normal():
+	
 	var movement_direction := player_input_synchronizer_component.movement_direction
+	var climb_direction := player_input_synchronizer_component.climb_direction
 	if is_multiplayer_authority():
+		var ladder_collider := ladder_ray_cast_2d.get_collider()
+		if ladder_collider && climb_direction != 0:
+			var is_going_up := climb_direction < 0
+			var is_going_down := climb_direction > 0
+			var ladder_is_below_player: bool = ladder_collider.global_position.y > global_position.y
+			var ladder_is_above_player: bool = ladder_collider.global_position.y < global_position.y
+			if !(ladder_is_below_player && is_going_up)\
+				&& !(is_on_floor() && is_going_down && ladder_is_above_player):
+				global_position.x = ladder_collider.global_position.x + 32.0/2
+				if ladder_is_below_player:
+					global_position.y += 1
+				state_machine.change_state(state_climb)
+		
 		if player_input_synchronizer_component.is_jump_pressed && is_on_floor():
 			velocity.y = JUMP_VELOCITY
 		
@@ -84,6 +104,31 @@ func state_normal():
 	set_animation()
 
 func leave_state_normal():
+	animation_player.play("RESET")
+
+func enter_state_climb():
+	pass
+
+func state_climb():
+	var climb_direction := player_input_synchronizer_component.climb_direction
+	if is_multiplayer_authority():
+		var ladder_collider = ladder_ray_cast_2d.get_collider()
+		if !ladder_collider: 
+			state_machine.change_state(state_normal)
+			
+		if player_input_synchronizer_component.is_jump_pressed:
+			state_machine.change_state(state_normal)
+		
+		var target_y_velocity = climb_direction * SPEED / 2
+		if climb_direction:
+			velocity = Vector2(0, target_y_velocity)
+		else:
+			velocity = Vector2.ZERO
+		
+		if target_y_velocity > 0 && is_on_floor():
+			state_machine.change_state(state_normal)
+	
+func leave_state_climb():
 	animation_player.play("RESET")
 
 func enter_state_attack():

@@ -14,7 +14,7 @@ var player_scene: PackedScene = preload("uid://b0ulb6hlnqy22")
 #@onready var enemy_manager: EnemyManager = $EnemyManager
 #@onready var _background_effects: Node2D = $BackgroundEffects
 #@onready var _background_mask: Sprite2D = %BackgroundMask
-#@onready var game_ui: GameUI = $GameUI
+@onready var game_ui: GameUI = $GameUI
 #@onready var pause_menu: PauseMenu = $PauseMenu
 #@onready var lobby_manager: LobbyManager = $LobbyManager
 
@@ -34,7 +34,7 @@ func _ready():
 		player.global_position = center_position.global_position
 		
 		if multiplayer.get_unique_id() == data.peer_id:
-			pass#game_ui.connect_player(player)
+			game_ui.connect_player(player)
 		
 		if is_multiplayer_authority():
 			if data.is_respawning:

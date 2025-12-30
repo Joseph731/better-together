@@ -28,7 +28,7 @@ func _process(_delta: float) -> void:
 	if is_multiplayer_authority():
 		if monsters.get_child_count() < 1:
 			var slime = slime_scene.instantiate() as Slime
-			slime.global_position = Vector2(500,100)
+			slime.global_position = Vector2(500,400)
 			monsters.add_child(slime, true)
 
 func remove_peer_id_from_peer_ids_inside_house(peer_id: int):

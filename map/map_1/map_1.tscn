@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://cehspp60a65qw"]
+[gd_scene load_steps=9 format=4 uid="uid://cehspp60a65qw"]
 
 [ext_resource type="Texture2D" uid="uid://be7ms75lgrwhn" path="res://assets/house.png" id="1_fyqlq"]
 [ext_resource type="Script" uid="uid://nw568aog4mp6" path="res://map/map_1/map_1.gd" id="1_lfl1v"]
 [ext_resource type="PackedScene" uid="uid://btt7spw8fmsj2" path="res://object/portal/portal.tscn" id="2_lfl1v"]
+[ext_resource type="TileSet" uid="uid://bef25gvs46hcm" path="res://resource/tile_map.tres" id="4_l25oo"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_74c6r"]
 size = Vector2(568, 56)
@@ -45,7 +46,8 @@ scale = Vector2(568.00006, 55.999985)
 texture = SubResource("PlaceholderTexture2D_7784c")
 
 [node name="StaticBody2D2" type="StaticBody2D" parent="."]
-position = Vector2(686, 396)
+position = Vector2(683, 405)
+rotation = 0.9540397
 collision_mask = 0
 metadata/_edit_group_ = true
 
@@ -56,4 +58,32 @@ shape = SubResource("RectangleShape2D_md4jv")
 scale = Vector2(30, 100)
 texture = SubResource("PlaceholderTexture2D_qbftp")
 
+[node name="StaticBody2D3" type="StaticBody2D" parent="."]
+position = Vector2(747.99994, 404.99997)
+rotation = -0.958966
+collision_mask = 0
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D3"]
+shape = SubResource("RectangleShape2D_md4jv")
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D3"]
+scale = Vector2(30, 100)
+texture = SubResource("PlaceholderTexture2D_qbftp")
+
 [node name="Monsters" type="Node" parent="."]
+
+[node name="TileMap" type="Node" parent="."]
+
+[node name="TileMapLayer" type="TileMapLayer" parent="TileMap"]
+tile_map_data = PackedByteArray("AAAHABEAAQAFAAoAAAAHABAAAQAFAAMAAAAHAA8AAQAFAAEAAAAGABIAAQAEAAsAAAAGABEAAQAEAAoAAAAGABAAAQADAAMAAAAGAA8AAQADAAEAAAAFABIAAQADAAUAAAAFABEAAQADAAMAAAAFABAAAQADAAMAAAAFAA8AAQADAAEAAAAEABIAAQADAAUAAAAEABEAAQADAAMAAAAEABAAAQADAAMAAAAEAA8AAQADAAEAAAADABIAAQADAAUAAAADABEAAQADAAMAAAADABAAAQADAAMAAAADAA8AAQADAAEAAAACABIAAQADAAUAAAACABEAAQADAAMAAAACABAAAQADAAMAAAACAA8AAQADAAEAAAABABIAAQADAAUAAAABABEAAQADAAMAAAABABAAAQADAAMAAAABAA8AAQADAAEAAAAAABEAAQADAAMAAAAAABAAAQADAAMAAAAAAA8AAQADAAEAAAAAABIAAQADAAUAAAD//xIAAQADAAUAAAD//xEAAQADAAMAAAD//xAAAQADAAMAAAD//w8AAQADAAEAAAD+/xIAAQADAAUAAAD+/xEAAQADAAMAAAD+/xAAAQADAAMAAAD+/w8AAQADAAEAAAD9/xIAAQADAAUAAAD9/xEAAQADAAMAAAD9/xAAAQADAAMAAAD9/w8AAQADAAEAAAD8/xIAAQADAAUAAAD8/xEAAQADAAMAAAD8/xAAAQADAAMAAAD8/w8AAQADAAEAAAD7/xIAAQADAAUAAAD7/xEAAQADAAMAAAD7/xAAAQADAAMAAAD7/w8AAQADAAEAAAD6/xIAAQACAAsAAAD6/xEAAQABAAMAAAD6/xAAAQABAAMAAAD6/w8AAQABAAEAAAAGAAwAAQATAA4AAAAFAAwAAQADAAEAAQAEAAwAAQADAAEAAQADAAwAAQAPAA4AAAD//wwAAQATAA4AAAD+/wwAAQADAAEAAQD9/wwAAQADAAEAAQD8/wwAAQAPAA4AAAA=")
+tile_set = ExtResource("4_l25oo")
+
+[node name="Ladder" type="TileMapLayer" parent="TileMap"]
+position = Vector2(-64, 384)
+tile_map_data = PackedByteArray("AAAAAAAAAQAHAAoAAAAAAAEAAQAHAAoAAAAAAAIAAQAHAAoAAAA=")
+tile_set = ExtResource("4_l25oo")
+
+[node name="EnemyBlocker" type="TileMapLayer" parent="TileMap"]
+tile_map_data = PackedByteArray("AAABAA4AAQABABQAAAABAA0AAQABABQAAAABAAwAAQABABQAAAA=")
+tile_set = ExtResource("4_l25oo")
