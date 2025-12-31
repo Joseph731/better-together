@@ -41,6 +41,12 @@ func _ready():
 				player.is_respawn = true
 			#player.died.connect(_on_player_died.bind(data.peer_id))
 		
+		for player_val in player_dictionary.values():
+			if !is_instance_valid(player_val):
+				continue
+			if player_val.z_index == player.z_index:
+				player.z_index += 15 #subview port method is better for this
+			
 		player_dictionary[data.peer_id] = player
 		return player
 	

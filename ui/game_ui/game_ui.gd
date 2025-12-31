@@ -33,7 +33,7 @@ func _on_health_changed(current_health: int, max_health: int):
 
 func _on_exp_changed(current_exp: int, max_exp: int):
 	exp_bar.value = float(current_exp) / max_exp if max_exp != 0 else 0.0
-	exp_label.text = str(current_exp) + "[" + "%.2f" % (current_exp * 100 / max_exp) + "%]"
+	exp_label.text = str(current_exp) + "[" + "%.2f" % (current_exp * 100.0 / max_exp) + "%]"
 
 func _on_leveled_up(current_level: int):
 	level_count_label.text = "Lvl " + str(current_level)

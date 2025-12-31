@@ -17,9 +17,6 @@ script = ExtResource("1_t84fp")
 scale = Vector2(514, 374)
 texture = SubResource("PlaceholderTexture2D_a1o00")
 
-[node name="Portal" parent="." instance=ExtResource("1_ngmq2")]
-position = Vector2(133, 186)
-
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 position = Vector2(0, 194)
 metadata/_edit_group_ = true
@@ -30,3 +27,6 @@ shape = SubResource("RectangleShape2D_ngmq2")
 [node name="Sprite2D" type="Sprite2D" parent="StaticBody2D"]
 scale = Vector2(532, 16)
 texture = SubResource("PlaceholderTexture2D_t84fp")
+
+[node name="Portal" parent="." instance=ExtResource("1_ngmq2")]
+position = Vector2(133, 186)

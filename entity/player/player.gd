@@ -119,7 +119,7 @@ func state_climb():
 		if player_input_synchronizer_component.is_jump_pressed:
 			state_machine.change_state(state_normal)
 		
-		var target_y_velocity = climb_direction * SPEED / 2
+		var target_y_velocity = climb_direction * SPEED / 1.5
 		if climb_direction:
 			velocity = Vector2(0, target_y_velocity)
 		else:
@@ -169,12 +169,13 @@ func execute_basic_attack():
 			basic_attack.global_position.x = global_position.x - 45 
 		else:
 			basic_attack.global_position.x = global_position.x + 45
-		basic_attack.source_global_position = global_position
+		basic_attack.source_player = self
 		basic_attack.source_peer_id = input_multiplayer_authority
 		get_parent().add_child(basic_attack, true)
 
 func start_invincibility_frames():
-	hurtbox_component.set_deferred("monitoring", false)
+	hurtbox_component.monitoring = false
+	hurtbox_component.disable_collisions = true
 	invincibility_frames_timer.start()
 
 
@@ -206,10 +207,12 @@ func _on_hit_by_hitbox(attacking_hitbox_component: HitboxComponent):
 		
 	if is_on_floor():
 		velocity.y = -220.0
+	
 	start_invincibility_frames()
 
 func _on_invincibility_frames_timer_timeout():
-	hurtbox_component.set_deferred("monitoring", true)
+	hurtbox_component.monitoring = true
+	hurtbox_component.disable_collisions = false
 
 @rpc("authority", "call_local")
 func spawn_damage_number(damage_amount: int):

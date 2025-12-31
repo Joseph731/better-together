@@ -25,7 +25,7 @@ var current_exp: int:
 
 func _ready() -> void:
 	current_exp = 0
-	current_level = 199
+	current_level = 1
 
 @rpc("authority", "call_local")
 func emit_exp_given(amount: int):

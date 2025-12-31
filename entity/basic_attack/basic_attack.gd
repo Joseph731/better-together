@@ -2,7 +2,7 @@ class_name BasicAttack
 extends Node2D
 
 @onready var hitbox_component: HitboxComponent = $HitboxComponent
-var source_global_position: Vector2
+var source_player: Player
 var source_peer_id: int
 var frame_passed: bool = false
 var damage: int = 1
